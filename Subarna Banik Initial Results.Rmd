@@ -1,0 +1,210 @@
+---
+title: " Subarna Banik-Initial Results and Code"
+
+---
+install.packages("ggplot2")
+library(ggplot2)
+install.packages("dplyr")
+library(dplyr)
+install.packages("DataExplorer") 
+library(DataExplorer)
+install.packages("ggcorrplot") 
+library(ggcorrplot)
+
+
+
+# Download the data
+```{r}
+patient_df <- read.csv("C:/Users/subarna banik/Downloads/Outpatient_and_Ambulatory_Surgery_Consumer_Assessment_survey.csv", header=T, stringsAsFactors = F, na.strings = c("","?","NA"))
+#View the structure of the data
+str(patient_df)
+pat_df_org <- patient_df
+
+
+
+
+
+
+```
+
+
+```{r}
+
+# Give the columns short names 
+names(patient_df) <- c("State","Clean_Full","Clean_Simi","Clean_No","Staff_Mean_Score","Procedure_OK","Procedure_Simi","Procedure_No","Procedure_Mean_score","Facility_9_10","Facility_7_8","Facility_0_6","Facility_Mean_Score","Recommend_OK","Recommend_Simi","Recommend_No","Recommend_Mean_Score","Patient_Count","Completed_Surveys","Response_Rate","Start_Date","End_Date")
+
+#View the structure of the data
+str(patient_df)
+# 48 columns are integer and 3 columns are Catagorical data Out of 51 columns
+```
+
+```{r}
+# Number of rows and Columns in the Dataset
+nrow(patient_df)
+ncol(patient_df)
+# 51 rows $ 22 columns in this Dataset.
+
+```
+
+
+```{r}
+#use the summary() function to see the descriptive statistics of the numeric values such as min, max, mean, and median. 
+summary(patient_df)
+
+```
+
+
+```{r}
+ # Multivariate analysis, starting with Correlation analysis
+plot_correlation(patient_df, type = "continuous","Review.Date")
+
+#The relationship between two variables is generally considered strong when their r value is larger than 0.7. The correlation r measures the strength of the linear relationship between two quantitative variables.Positive correlation exists when two variables move in the same direction.Negative Correlation: as one variable increases, the other decreases.Correlation coefficients whose magnitude are between 0.5 and 0.7 indicate variables which can be considered moderately correlated. Correlation coefficients whose magnitude are between 0.3 and 0.5 indicate variables which have a low correlation.
+
+
+
+
+```
+
+
+```{r}
+
+# checking the dimension of the input dataset and the time of variables
+plot_str(patient_df)
+
+
+```
+
+
+```{r}
+#search for Missing Values
+plot_missing(patient_df)
+# There is no missing value
+```
+
+
+```{r}
+#Categorical Variables — Barplots
+plot_bar(patient_df)
+
+```
+
+
+```{r}
+ # View the distribution
+ #Histogram Shape:
+#If symmetric mean and median are approximately equal.
+#If right skewed mean is greater than the median
+#If left skewed mean is less than median
+ 
+hist(patient_df$Clean_Full)
+hist(patient_df$Clean_Simi)
+hist(patient_df$Clean_No)
+hist(patient_df$Staff_Mean_Score)
+hist(patient_df$Procedure_OK)
+hist(patient_df$Procedure_Simi)
+hist(patient_df$Procedure_No)
+hist(patient_df$Procedure_Mean_score)
+hist(patient_df$Facility_9_10)
+hist(patient_df$Facility_7_8)
+hist(patient_df$Facility_0_6)
+hist(patient_df$Facility_Mean_Score)
+hist(patient_df$Recommend_OK)
+hist(patient_df$Recommend_Simi)
+hist(patient_df$Recommend_No)
+hist(patient_df$Recommend_Mean_Score)
+hist(patient_df$Patient_Count)
+hist(patient_df$Completed_Surveys)
+hist(patient_df$Response_Rate)
+
+# Based on the Summary of patient_df explanationations are below:
+# There is no symmetric Histogram which shows mean and median are approximately equal.
+# hist(patient_df$Clean_Full);The histogram shows the facility was clean is skewed left and here the mean is less than the median. This is the case because skewed-left data have a few small values that drive the mean value 96.73 is smaller than medial value 97.
+# hist(patient_df$Clean_Simi);The histogram is skewed right; the mean is greater than the median. A right-skewed distribution has a long right tail. Right-skewed distributions are also called positive-skew distributions. Here the Mean is 3.078 which is greater than the Median 3. Similarly, other Histograms can be described.
+
+
+
+
+
+```
+
+
+```{r}
+# Boxplot
+boxplot(patient_df$Clean_Full, ylab = "Clean_Full", main = "Boxplot of Clean_Full")
+
+boxplot(patient_df$Clean_Simi, ylab = "Clean_Simi", main = "Boxplot of Clean_Simi")
+boxplot(patient_df$Clean_No, ylab = "Clean_No", main = "Boxplot of Clean_No")
+boxplot(patient_df$Staff_Mean_Score, ylab = "Staff_Mean_Score", main = "Boxplot of Staff_Mean_Score")
+boxplot(patient_df$Procedure_OK, ylab = "Procedure_OK", main = "Boxplot of Procedure_OK")
+boxplot(patient_df$Procedure_Simi, ylab = "Procedure_Simi", main = "Boxplot of Procedure_Simi")
+boxplot(patient_df$Procedure_No, ylab = "Procedure_No", main = "Boxplot of Procedure_No")
+boxplot(patient_df$Procedure_Mean_score, ylab = "Procedure_Mean_score", main = "Boxplot of Procedure_Mean_score")
+boxplot(patient_df$Facility_9_10, ylab = "Facility_9_10", main = "Boxplot of Facility_9_10")
+boxplot(patient_df$Facility_7_8, ylab = "Facility_7_8", main = "Boxplot of Facility_7_8")
+boxplot(patient_df$Facility_0_6, ylab = "Facility_0_6", main = "Boxplot of Facility_0_6")
+boxplot(patient_df$Facility_Mean_Score, ylab = "Facility_Mean_Score", main = "Boxplot of Facility_Mean_Score")
+
+boxplot(patient_df$Recommend_OK, ylab = "Recommend_OK", main = "Boxplot of Recommend_OK")
+boxplot(patient_df$Recommend_Simi, ylab = "Recommend_Simi", main = "Boxplot of Recommend_Simi")
+boxplot(patient_df$Recommend_No, ylab = "Recommend_No", main = "Boxplot of Recommend_No")
+boxplot(patient_df$Recommend_Mean_Score, ylab = "Recommend_Mean_Score", main = "Boxplot of Recommend_Mean_Score")
+boxplot(patient_df$Patient_Count, ylab = "Patient_Count", main = "Boxplot of Patient_Count")
+boxplot(patient_df$Completed_Surveys, ylab = "Completed_Surveys", main = "Boxplot of Completed_Surveys")
+boxplot(patient_df$Response_Rate, ylab = "Response_Rate", main = "Boxplot of Response_Rate")
+
+# Boxplot explanation of Response Rate;In the box plot Ist quarter(25%)value 27 that shows bottom part in the box, Median(50%)value 28  the darker line in the box and 3rd quarter(75%)value 31.50  upper line in the box. Also the  Min value 22, Mean 28.92 and Max value 42 are shown in the Boxplot.Similarly, other boxplots can be explained. 
+```
+
+```{r}
+
+# Ist 6 rows of Data
+patient_df_Banik<-patient_df
+head(patient_df_Banik)
+
+
+```
+
+
+```{r}
+# Last 6 rows of Data
+patient_df_Banik<-patient_df
+tail(patient_df_Banik)
+```
+
+
+```{r}
+
+
+
+
+```
+
+
+```{r}
+
+
+```
+```{r}
+
+
+
+```
+
+
+```{r}
+
+
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
